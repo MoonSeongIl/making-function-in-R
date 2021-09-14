@@ -6,8 +6,7 @@ output : html_document
 ---
 # Start
 
-## 설정
-$$x,~~ \epsilon,~~ seed$$
+$x,~~ \epsilon,~~ seed$ 설정
 ```{r}
 set.seed(1234)
 x = rnorm(100,m=0,sd=1)
@@ -39,7 +38,7 @@ linear_function<-function(x,y){
   
   Bhat = solve(t(x)%*%x)%*%(t(x)%*%y)
   fitted_value = x%*%Bhat
-  print(head(fitted_value))
+  print(fitted_value)
 }
 ```
 
@@ -117,7 +116,7 @@ knn_function <- function(x,y,k){
   for(q in 1:dim(matrix_order)[1]){
     fitted_value[q] <- mean(y[matrix_order[2:(k+1),q]])
   }
-  return(head(fitted_value))
+  return(fitted_value)
 }
 ```
 
