@@ -1,19 +1,62 @@
-rm(list=ls())
+---
+title : '통계학습 2주차 과제'
+author : '문성일'
+date : '9/14/2021'
+output : html_document
+---
+# Start
+
+## 설정
+$$x,~~ \epsilon,~~ seed$$
+```{r}
 set.seed(1234)
+x = rnorm(100,m=0,sd=1)
+e = rnorm(100,m=0,sd=1)
+```
 
-# knn Algorithms
+## Problem1
+$$y=x+\epsilon, \epsilon \sim N(0,1), ~X \sim N(0,1)$$
 
-# 1. Y = X+e
-x1 <- rnorm(100,m=0,sd=1)
-head(x1)
-e <- rnorm(100,m=0,sd=1)
-y<- x1+e
+## Problem2
+$$y=x*(1-x)+\epsilon, \epsilon \sim N(0,1), ~X \sim N(0,1)$$
 
-# 2. Y = X+e
-x2 <- rnorm(100,m=0,sd=1)
-e <- rnorm(100,m=0,sd=1)
-y2<- x2*(1-x2)+e
+```{r}
+y1 = x+e #Problem 1
+y2 = x*(1-x)+e #problem 2
+```
 
+## Linear model
+
+### 함수만들기
+```{r}
+linear_function<-function(x,y){
+  x = as.matrix(x)
+  y = as.matrix(y)
+  
+  one_vector = rep(1,dim(x)[1])
+  
+  x = cbind(one_vector,x)
+  
+  Bhat = solve(t(x)%*%x)%*%(t(x)%*%y)
+  fitted_value = x%*%Bhat
+  print(head(fitted_value))
+}
+```
+
+### Problem1 결과값
+```{r}
+linear_function(x,y1)
+```
+
+### Problem2 결과값
+```{r}
+linear_function(x,y2)
+```
+
+## KNN
+
+### 함수만들기
+```{r}
 # knn function
 knn_function <- function(x,y,k){
   
@@ -74,10 +117,38 @@ knn_function <- function(x,y,k){
   for(q in 1:dim(matrix_order)[1]){
     fitted_value[q] <- mean(y[matrix_order[2:(k+1),q]])
   }
-  return(fitted_value)
+  return(head(fitted_value))
 }
-knn_function(x1,y,k=1)
-knn_function(x1,y,k=5)
-knn_function(x1,y,k=10)
-knn_function(x2,y2,k=5)
+```
+
+### Problem1 1-NN결과값
+```{r}
+knn_function(x,y1,k=1)
+```
+
+### Problem1 5-NN결과값
+```{r}
+knn_function(x,y1,k=1)
+```
+
+### Problem1 10-NN결과값
+```{r}
+knn_function(x,y1,k=10)
+```
+
+### Problem2 1-NN결과값
+```{r}
+knn_function(x,y2,k=1)
+```
+
+### Problem2 5-NN결과값
+```{r}
+knn_function(x,y2,k=5)
+```
+
+### Problem2 10-NN결과값
+```{r}
+knn_function(x,y2,k=10)
+```
+
 

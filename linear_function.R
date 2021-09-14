@@ -1,31 +1,26 @@
 # 1. y=x+e 문제.
-X = rnorm(10000,0,1)
-e = rnorm(10000,0,1)
-y = X+e
+set.seed(1234)
+x = rnorm(100,0,1)
+e = rnorm(100,0,1)
+y = x+e
 
 # linear Model
-fit_package_1 = lm(y~X)
-# lm 함수를 사용했을 때 b0 : 0.01903 / B1 : 1.01463
-
-linear_function<-function(X,y){
-  X = as.matrix(X)
+linear_function<-function(x,y){
+  x = as.matrix(x)
   y = as.matrix(y)
   
-  one_vector = rep(1,dim(X)[1])
+  one_vector = rep(1,dim(x)[1])
   
-  X = cbind(one_vector,X)
+  x = cbind(one_vector,x)
   
-  Bhat = solve(t(X)%*%X)%*%(t(X)%*%y)
-  Bhat = t(Bhat)
-  colnames(Bhat)<-c('B0','B1')
-  print(Bhat)
+  Bhat = solve(t(x)%*%x)%*%(t(x)%*%y)
+  fitted_value <- x%*%Bhat
+  fitted_value<-as.vector(fitted_value)
+  print(fitted_value)
 }
 
-linear_function(X,y)
-fit_package_1
+linear_function(x,y)
 
 # Y=X(1-X)
-x2 = rnorm(10000,0,1)
-e = rnorm(10000,0,1)
-y2 = x2*(1-x2)
-linear_function(x2,y2)
+y2 = x1*(1-x1)
+linear_function(x1,y2)
